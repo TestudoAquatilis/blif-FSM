@@ -13,6 +13,12 @@ public class Main {
 		fsm = parser.parse ();
 		System.out.println (fsm);
 
+		if (fsm.check ()) {
+			System.out.println ("FSM seems to be correctly specified.");
+		} else {
+			System.out.println ("FSM is not valid!");
+		}
+
 		System.out.println ("generating Memory from FSM");
 		Generator generator = new GeneratorSimple (fsm);
 		Memory    mem       = generator.generate();

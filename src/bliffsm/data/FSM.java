@@ -117,7 +117,7 @@ public class FSM {
 	{
 		state_encoding    = new TreeMap<String, Integer> ();
 		state_names       = new TreeMap<Integer, String> ();
-		reset_state       = "";
+		reset_state       = null;
 		input_id_to_name  = new TreeMap<Integer, String> ();
 		input_id_to_wire  = new TreeMap<Integer, Integer> ();
 		input_wire_to_id  = new TreeMap<Integer, Integer> ();
@@ -218,5 +218,26 @@ public class FSM {
 		}
 
 		return result.toString ();
+	}
+
+	public boolean check ()
+	{
+		int n_inputs  = input_id_to_name.size ();
+		int n_outputs = output_id_to_name.size ();
+
+		for (TransitionArgument i_transition : transitions.keySet ()) {
+			String in  = i_transition.input ();
+			String st  = i_transition.state ();
+			TransitionValue val = transitions.get (i_transition);
+			String nst = val.state ();
+			String out = val.output ();
+
+			if (! state_encoding.containsKey (st))  return false;
+			if (! state_encoding.containsKey (nst)) return false;
+			if (in.length ()  != n_inputs)          return false;
+			if (out.length () != n_outputs)         return false;
+		}
+
+		return true;
 	}
 }
