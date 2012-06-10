@@ -29,6 +29,21 @@ public class Memory {
 		Arrays.fill (memory, empty_value);
 	}
 
+	public int addressBits ()
+	{
+		return address_bits;
+	}
+
+	public int dataBits ()
+	{
+		return data_bits;
+	}
+
+	public String[] memory ()
+	{
+		return memory;
+	}
+
 	public void put (int address, String data)
 	{
 		if (address >= (1 << address_bits) || data.length () > data_bits) {
