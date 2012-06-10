@@ -4,7 +4,8 @@
 
 # JFLAGS = -g
 #JFLAGS = -verbose
-JFLAGS = 
+# JFLAGS = -Xlint:unchecked
+JFLAGS =
 JC = javac
 
 OUTPUTJAR = bliffsm.jar

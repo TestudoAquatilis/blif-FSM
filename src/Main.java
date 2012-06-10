@@ -11,6 +11,7 @@ public class Main {
 
 		System.out.println ("generating test-FSM ...");
 		fsm = parser.parse ();
+		System.out.println (fsm);
 
 		System.out.println ("generating Memory from FSM");
 		Generator generator = new GeneratorSimple (fsm);

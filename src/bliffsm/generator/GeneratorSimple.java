@@ -16,7 +16,7 @@ public class GeneratorSimple implements Generator {
 
 	public Memory generate ()
 	{
-		Memory result = new Memory ();
+		Memory result = new Memory (0, 0);
 
 		// ... TODO
 
