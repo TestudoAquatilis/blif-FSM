@@ -17,7 +17,7 @@ public class FSM {
 	private TreeMap<TransitionArgument, TransitionValue> transitions;
 
 
-	private class TransitionArgument implements Comparable<TransitionArgument> {
+	public class TransitionArgument implements Comparable<TransitionArgument> {
 		private String input;
 		private String state;
 
@@ -65,7 +65,7 @@ public class FSM {
 		}
 	}
 
-	private class TransitionValue implements Comparable<TransitionValue> {
+	public class TransitionValue implements Comparable<TransitionValue> {
 		private String output;
 		private String state;
 
@@ -129,6 +129,76 @@ public class FSM {
 		transitions       = new TreeMap<TransitionArgument, TransitionValue> ();
 	}
 
+	public String resetState ()
+	{
+		return reset_state;
+	}
+
+	public TreeMap<String, Integer> stateEncoding ()
+	{
+		return state_encoding;
+	}
+
+	public TreeMap<Integer, String> stateNames ()
+	{
+		return state_names;
+	}
+
+	public TreeMap<Integer, String> inputIdToName ()
+	{
+		return input_id_to_name;
+	}
+
+	public TreeMap<Integer, Integer> inputIdToWire ()
+	{
+		return input_id_to_wire;
+	}
+
+	public TreeMap<Integer, Integer> inputWireToId ()
+	{
+		return input_wire_to_id;
+	}
+
+	public TreeMap<String, Integer> inputNameToId ()
+	{
+		return input_name_to_id;
+	}
+
+	public TreeMap<Integer, String> outputIdToName ()
+	{
+		return output_id_to_name;
+	}
+
+	public TreeMap<Integer, Integer> outputIdToWire ()
+	{
+		return output_id_to_wire;
+	}
+
+	public TreeMap<Integer, Integer> outputWireToId ()
+	{
+		return output_wire_to_id;
+	}
+
+	public TreeMap<String, Integer> outputNameToId ()
+	{
+		return output_name_to_id;
+	}
+
+	public Set<Integer> inputIds ()
+	{
+		return input_id_to_name.keySet ();
+	}
+
+	public Set<Integer> outputIds ()
+	{
+		return output_id_to_name.keySet ();
+	}
+
+	public TreeMap<TransitionArgument, TransitionValue> transitions ()
+	{
+		return transitions;
+	}
+
 	public void addState (String state, int encoding)
 	{
 		if (state == null || encoding < 0) throw new IllegalArgumentException ("");
@@ -176,7 +246,7 @@ public class FSM {
 	{
 		if (state == null || input == null || nextState == null || output == null) throw new IllegalArgumentException ("");
 
-		transitions.put (new TransitionArgument (input, state), new TransitionValue (output, state));
+		transitions.put (new TransitionArgument (input, state), new TransitionValue (output, nextState));
 	}
 
 	public String toString ()

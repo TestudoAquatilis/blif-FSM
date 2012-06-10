@@ -6,7 +6,7 @@ import bliffsm.printer.*;
 public class Main {
 	public static void main (String[] args)
 	{
-		Parser parser = new ParserTest ();
+		Parser parser = new ParserTest (2);
 		FSM    fsm;
 
 		System.out.println ("generating test-FSM ...");
@@ -22,6 +22,8 @@ public class Main {
 		System.out.println ("generating Memory from FSM");
 		Generator generator = new GeneratorSimple (fsm);
 		Memory    mem       = generator.generate();
+		System.out.println ("Memory content:");
+		System.out.println (mem);
 
 		System.out.println ("printing Memfile:");
 		Printer memprinter  = new PrinterMemfile (fsm, mem);
