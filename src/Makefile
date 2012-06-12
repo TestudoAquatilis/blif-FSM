@@ -26,6 +26,7 @@ CLASSES = \
 	  bliffsm/generator/GeneratorSimple.java \
 	  bliffsm/printer/Printer.java \
 	  bliffsm/printer/PrinterMemfile.java \
+	  bliffsm/printer/PrinterVerilogGeneric.java \
 	  Main.java \
 
 
