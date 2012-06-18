@@ -129,6 +129,12 @@ public class FSM {
 		transitions       = new TreeMap<TransitionArgument, TransitionValue> ();
 	}
 
+	public int nStateBits ()
+	{
+		int last_state = stateNames().lastKey ();
+		return Integer.numberOfTrailingZeros (Integer.highestOneBit (last_state) << 1);
+	}
+
 	public String resetState ()
 	{
 		return reset_state;

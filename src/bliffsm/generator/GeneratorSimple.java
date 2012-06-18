@@ -26,7 +26,7 @@ public class GeneratorSimple implements Generator {
 		int last_in_wire  = fsm.inputWireToId().lastKey ();
 		int last_out_wire = fsm.outputWireToId().lastKey ();
 
-		int n_state_bits = Integer.numberOfTrailingZeros (Integer.highestOneBit (last_state) << 1);
+		int n_state_bits = fsm.nStateBits ();
 
 		int n_adr_bits  = Math.max (last_in_wire, n_inputs + n_state_bits);
 		int n_data_bits = Math.max (last_out_wire, n_outputs + n_state_bits);

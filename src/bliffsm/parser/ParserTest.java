@@ -28,8 +28,8 @@ public class ParserTest implements Parser {
 	{
 		FSM result = new FSM ();
 
-		result.addInput (0, "input", 0);
-		result.addOutput (0, "output", 0);
+		result.addInput (0, "fsm_input", 0);
+		result.addOutput (0, "fsm_output", 0);
 
 		result.addState ("st0", 0);
 		result.addState ("st1", 1);
