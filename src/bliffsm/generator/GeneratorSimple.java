@@ -18,8 +18,6 @@ public class GeneratorSimple implements Generator {
 
 	public Memory generate ()
 	{
-		int n_states   = fsm.stateEncoding().size ();
-		int last_state = fsm.stateNames().lastKey ();
 		int n_inputs   = fsm.inputIdToName().size ();
 		int n_outputs  = fsm.outputIdToName().size ();
 
