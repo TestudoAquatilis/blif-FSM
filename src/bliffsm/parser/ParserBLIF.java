@@ -46,12 +46,12 @@ public class ParserBLIF implements Parser {
 	private void warn(String message)
 	{
 		TextParserException e = new TextParserException(fileName, currentLineNumber, "warning: " + message, null);
-		System.out.println(e.getMessage());
+		System.err.println(e.getMessage());
 	}
 	private void error(String message) throws TextParserException
 	{
 		TextParserException e = new TextParserException(fileName, currentLineNumber, "error: " + message, null);
-		System.out.println(e.getMessage());
+		System.err.println(e.getMessage());
 		throw(e);
 	}
 
@@ -153,7 +153,7 @@ public class ParserBLIF implements Parser {
 					error("code already used");
 				}
 				
-				fsm.addState(cmd[1], code);
+				fsm.updateState(cmd[1], code);
 			}
 			
 			else {
@@ -275,11 +275,11 @@ public class ParserBLIF implements Parser {
 				}
 					
 				if (!fsm.stateEncoding().containsKey(cmd[1])) {
-					fsm.addState(cmd[1], -1 /*- fsm.stateEncoding().size()*/);
+					fsm.updateState(cmd[1], -1 /*- fsm.stateEncoding().size()*/);
 				}
 				
 				if (!fsm.stateEncoding().containsKey(cmd[2])) {
-					fsm.addState(cmd[2], -1 /*- fsm.stateEncoding().size()*/);
+					fsm.updateState(cmd[2], -1 /*- fsm.stateEncoding().size()*/);
 				}
 
 				// TODO: intern auch '-' verwenden
@@ -379,7 +379,7 @@ public class ParserBLIF implements Parser {
 					pushbackStatement(statement);
 				}
 
-				System.out.println("evaluating model \"" + modelName + "\" ...");
+				System.err.println("evaluating model \"" + modelName + "\" ...");
 				parseModel();
 				
 				if (null != (statement = readStatement())) {
@@ -401,7 +401,7 @@ public class ParserBLIF implements Parser {
 						warn("can't use code 0 for reset state (" + fsm.resetState() + 
 							") because it has been assigned to " + fsm.stateNames().get(0));
 					} else {
-						fsm.addState(fsm.resetState(), 0);
+						fsm.updateState(fsm.resetState(), 0);
 					}
 				} else if (code > 0) {
 					warn("reset state doesn't use code 0");
@@ -411,7 +411,7 @@ public class ParserBLIF implements Parser {
 				for (Entry<String, Integer> entry : fsm.stateEncoding().entrySet()) {
 					if (entry.getValue() < 0) {
 						for (; fsm.stateNames().containsKey(code); ++code);
-						fsm.addState(entry.getKey(), code);
+						fsm.updateState(entry.getKey(), code);
 					}
 				}
 			}
@@ -435,7 +435,7 @@ public class ParserBLIF implements Parser {
 		}
 		
 		catch (Exception e) {
-			System.out.println(e);
+			System.err.println(e);
 		}
 		
 		return this.fsm;

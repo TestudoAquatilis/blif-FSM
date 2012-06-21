@@ -205,7 +205,7 @@ public class FSM {
 		return transitions;
 	}
 
-	public void addState (String state, int encoding)
+	public void updateState (String state, int encoding)
 	{
 		if (state == null) throw new IllegalArgumentException ("");
 		state_encoding.put (state, encoding);
@@ -218,7 +218,7 @@ public class FSM {
 		reset_state = state;
 
 		if (! state_encoding.containsKey (state)) {
-			addState (state, 0);
+			updateState (state, 0);
 		}
 	}
 
@@ -252,6 +252,7 @@ public class FSM {
 	{
 		if (state == null || input == null || nextState == null || output == null) throw new IllegalArgumentException ("");
 
+		// TODO: if there already was a transition, check for conflict and throw an exception
 		transitions.put (new TransitionArgument (input, state), new TransitionValue (output, nextState));
 	}
 
@@ -298,6 +299,7 @@ public class FSM {
 
 	public boolean check ()
 	{
+
 		int n_inputs  = input_id_to_name.size ();
 		int n_outputs = output_id_to_name.size ();
 
@@ -313,6 +315,11 @@ public class FSM {
 			if (in.length ()  != n_inputs)          return false;
 			if (out.length () != n_outputs)         return false;
 		}
+
+		//TODO:
+		// - Transition from reset-state to ... ? (can one leave reset?)
+		// - is there a transition from/to every state?
+		// - warning messages
 
 		return true;
 	}

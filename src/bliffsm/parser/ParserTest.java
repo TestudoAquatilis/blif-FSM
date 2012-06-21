@@ -31,10 +31,10 @@ public class ParserTest implements Parser {
 		result.addInput (0, "fsm_input", 0);
 		result.addOutput (0, "fsm_output", 0);
 
-		result.addState ("st0", 0);
-		result.addState ("st1", 1);
-		result.addState ("st2", 2);
-		result.addState ("st3", 3);
+		result.updateState ("st0", 0);
+		result.updateState ("st1", 1);
+		result.updateState ("st2", 2);
+		result.updateState ("st3", 3);
 
 		result.setResetState ("st0");
 
@@ -59,10 +59,10 @@ public class ParserTest implements Parser {
 		result.addOutput (0, "output0", 0);
 		result.addOutput (1, "output1", 1);
 
-		result.addState ("st0", 0);
-		result.addState ("st1", 1);
-		result.addState ("st2", 2);
-		result.addState ("st3", 3);
+		result.updateState ("st0", 0);
+		result.updateState ("st1", 1);
+		result.updateState ("st2", 2);
+		result.updateState ("st3", 3);
 
 		result.setResetState ("st0");
 
