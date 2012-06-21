@@ -38,14 +38,19 @@ public class ParserTest implements Parser {
 
 		result.setResetState ("st0");
 
-		result.addTransition ("st0", "0", "st0", "0");
-		result.addTransition ("st0", "1", "st1", "0");
-		result.addTransition ("st1", "0", "st2", "0");
-		result.addTransition ("st1", "1", "st1", "0");
-		result.addTransition ("st2", "0", "st0", "0");
-		result.addTransition ("st2", "1", "st3", "1");
-		result.addTransition ("st3", "0", "st2", "0");
-		result.addTransition ("st3", "1", "st1", "0");
+		try {
+			result.addTransition ("st0", "0", "st0", "0");
+			result.addTransition ("st0", "1", "st1", "0");
+			result.addTransition ("st1", "0", "st2", "0");
+			result.addTransition ("st1", "1", "st1", "0");
+			result.addTransition ("st2", "0", "st0", "0");
+			result.addTransition ("st2", "1", "st3", "1");
+			result.addTransition ("st3", "0", "st2", "0");
+			result.addTransition ("st3", "1", "st1", "0");
+		} catch (Exception e) {
+			System.err.println (e);
+			System.exit (-1);
+		}
 
 		return result;
 	}
@@ -66,15 +71,19 @@ public class ParserTest implements Parser {
 
 		result.setResetState ("st0");
 
-		result.addTransition ("st0", "0x", "st0", "0x");
-		result.addTransition ("st0", "1x", "st1", "0x");
-		result.addTransition ("st1", "0x", "st2", "0x");
-		result.addTransition ("st1", "1x", "st1", "0x");
-		result.addTransition ("st2", "0x", "st0", "0x");
-		result.addTransition ("st2", "1x", "st3", "1x");
-		result.addTransition ("st3", "0x", "st2", "0x");
-		result.addTransition ("st3", "1x", "st1", "0x");
-
+		try {
+			result.addTransition ("st0", "0x", "st0", "0x");
+			result.addTransition ("st0", "1x", "st1", "0x");
+			result.addTransition ("st1", "0x", "st2", "0x");
+			result.addTransition ("st1", "1x", "st1", "0x");
+			result.addTransition ("st2", "0x", "st0", "0x");
+			result.addTransition ("st2", "1x", "st3", "1x");
+			result.addTransition ("st3", "0x", "st2", "0x");
+			result.addTransition ("st3", "1x", "st1", "0x");
+		} catch (Exception e) {
+			System.err.println (e);
+			System.exit (-1);
+		}
 
 		return result;
 	}

@@ -50,7 +50,7 @@ public class GeneratorSimple implements Generator {
 	private void memPut (Memory mem, String address, String data)
 	{
 		// zero xs in data
-		data = data.replace ('x', '0');
+		data = data.replace ('-', '0');
 
 		// expand xs in address to all cases
 		LinkedList<Integer> addresses = new LinkedList<Integer> ();
@@ -86,9 +86,9 @@ public class GeneratorSimple implements Generator {
 		
 		TreeMap <Integer, Integer> wire_to_id = fsm.inputWireToId ();
 
-		// initial "xxxxx..."
+		// initial don't care
 		for (int i_bit = 0; i_bit < adr_bits; ++i_bit) {
-			result.append ('x');
+			result.append ('-');
 		}
 
 		int state_enc = fsm.stateEncoding().get (state);
@@ -121,9 +121,9 @@ public class GeneratorSimple implements Generator {
 
 		TreeMap <Integer, Integer> wire_to_id = fsm.outputWireToId ();
 
-		// initial "xxxxx..."
+		// initial don't care
 		for (int i_bit = 0; i_bit < data_bits; ++i_bit) {
-			result.append ('x');
+			result.append ('-');
 		}
 
 		int state_enc = fsm.stateEncoding().get (next_state);

@@ -111,6 +111,32 @@ public class FSM {
 		{
 			return state.hashCode () + output.hashCode ();
 		}
+
+		public TransitionValue merge (TransitionValue other)
+		{
+			if (! state.equals(other.state)) return null;
+
+			if (output.length() != other.output.length()) return null;
+
+			StringBuilder result = new StringBuilder ();
+
+			for (int i = 0; i < output.length(); i++) {
+				char o1 = output.charAt(i);
+				char o2 = other.output.charAt(i);
+
+				if (o1 == o2) {
+					result.append (o1);
+				} else if (o1 == '-') {
+					result.append (o2);
+				} else if (o2 == '-') {
+					result.append (o1);
+				} else {
+					return null;
+				}
+			}
+
+			return new TransitionValue (state, result.toString ());
+		}
 	}
 
 	public FSM ()
@@ -248,12 +274,21 @@ public class FSM {
 		output_name_to_id.put (name, id);
 	}
 
-	public void addTransition (String state, String input, String nextState, String output)
+	public void addTransition (String state, String input, String nextState, String output) throws Exception
 	{
 		if (state == null || input == null || nextState == null || output == null) throw new IllegalArgumentException ("");
 
-		// TODO: if there already was a transition, check for conflict and throw an exception
-		transitions.put (new TransitionArgument (input, state), new TransitionValue (output, nextState));
+		TransitionArgument arg    = new TransitionArgument (input, state);
+		TransitionValue    val    = new TransitionValue    (output, nextState);
+		TransitionValue    oldVal = transitions.put (arg, val);
+
+		if (oldVal != null) {
+			TransitionValue mergeVal = oldVal.merge (val);
+
+			if (mergeVal == null) throw new Exception ("Different Transition already exists for state " + state + " and input " + input);
+
+			transitions.put (arg, mergeVal);
+		}
 	}
 
 	public String toString ()
@@ -303,6 +338,11 @@ public class FSM {
 		int n_inputs  = input_id_to_name.size ();
 		int n_outputs = output_id_to_name.size ();
 
+		TreeSet<String> states = new TreeSet<String> (state_encoding.keySet());
+
+		Set<String> stateAsTarget = states;
+		Set<String> stateAsStart  = new TreeSet<String> (states);
+
 		for (TransitionArgument i_transition : transitions.keySet ()) {
 			String in  = i_transition.input ();
 			String st  = i_transition.state ();
@@ -310,16 +350,40 @@ public class FSM {
 			String nst = val.state ();
 			String out = val.output ();
 
-			if (! state_encoding.containsKey (st))  return false;
-			if (! state_encoding.containsKey (nst)) return false;
-			if (in.length ()  != n_inputs)          return false;
-			if (out.length () != n_outputs)         return false;
+			if (! state_encoding.containsKey (st)) {
+				System.err.println ("FSM invalid: state " + st + " unknown.");
+				return false;
+			}
+			if (! state_encoding.containsKey (nst)) {
+				System.err.println ("FSM invalid: state " + nst + " unknown.");
+				return false;
+			}
+			if (in.length ()  != n_inputs) {
+				System.err.println ("FSM invalid: input vector " + in + " does not fit.");
+				return false;
+			}
+			if (out.length () != n_outputs) {
+				System.err.println ("FSM invalid: output vector " + out + " does not fit.");
+				return false;
+			}
+
+			stateAsStart.remove (st);
+			stateAsTarget.remove (nst);
 		}
 
-		//TODO:
-		// - Transition from reset-state to ... ? (can one leave reset?)
-		// - is there a transition from/to every state?
-		// - warning messages
+		if (reset_state != null) stateAsTarget.remove (reset_state);
+
+		if (stateAsTarget.size() > 0) {
+			System.err.println ("Warning: the following state(s) are unreachable: " + stateAsTarget.toString());
+		}
+
+		if (stateAsStart.size() > 0) {
+			System.err.println ("Info: the following state(s) can not be left: " + stateAsStart.toString());
+		}
+
+		if (stateAsStart.contains(reset_state)) {
+			System.err.println ("Warning: reset-state cannot be escaped!");
+		}
 
 		return true;
 	}
