@@ -207,7 +207,7 @@ public class FSM {
 
 	public void addState (String state, int encoding)
 	{
-		if (state == null || encoding < 0) throw new IllegalArgumentException ("");
+		if (state == null) throw new IllegalArgumentException ("");
 		state_encoding.put (state, encoding);
 		state_names.put (encoding, state);
 	}

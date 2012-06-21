@@ -6,7 +6,8 @@ import bliffsm.printer.*;
 public class Main {
 	public static void main (String[] args)
 	{
-		Parser parser = new ParserTest (2);
+		//Parser parser = new ParserTest (2);
+		Parser parser = new ParserBLIF ("../test.blif");
 		FSM    fsm;
 
 		System.err.println ("generating test-FSM ...");

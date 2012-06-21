@@ -22,6 +22,7 @@ CLASSES = \
 	  bliffsm/data/Memory.java \
 	  bliffsm/parser/Parser.java \
 	  bliffsm/parser/ParserTest.java \
+	  bliffsm/parser/ParserBLIF.java \
 	  bliffsm/generator/Generator.java \
 	  bliffsm/generator/GeneratorSimple.java \
 	  bliffsm/printer/Printer.java \
