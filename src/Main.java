@@ -8,10 +8,14 @@ public class Main {
 	{
 		//Parser parser = new ParserTest (2);
 		Parser parser = new ParserBLIF ("../test.blif");
-		FSM    fsm;
+		FSM    fsm    = null;
 
 		System.err.println ("generating test-FSM ...");
-		fsm = parser.parse ();
+		try {
+			fsm = parser.parse ();
+		} catch (Exception e) {
+			System.exit(1);
+		}
 		System.err.println (fsm);
 
 		if (fsm.check ()) {

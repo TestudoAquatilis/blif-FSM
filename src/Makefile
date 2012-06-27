@@ -25,6 +25,8 @@ CLASSES = \
 	  bliffsm/parser/ParserBLIF.java \
 	  bliffsm/generator/Generator.java \
 	  bliffsm/generator/GeneratorSimple.java \
+	  bliffsm/generator/StateEncoder.java \
+	  bliffsm/generator/StateEncoderSimple.java \
 	  bliffsm/printer/Printer.java \
 	  bliffsm/printer/PrinterMemfile.java \
 	  bliffsm/printer/PrinterVerilogGeneric.java \
