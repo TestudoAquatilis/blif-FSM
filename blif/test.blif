@@ -1,0 +1,13 @@
+.start_kiss
+.i 1
+.o 1
+0 st0 st0 0
+1 st0 st1 0
+0 st1 st2 0
+1 st1 st1 0
+0 st2 st0 0
+1 st2 st3 1
+0 st3 st2 0
+1 st3 st1 0
+.end_kiss
+.code st3 100

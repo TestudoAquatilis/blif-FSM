@@ -7,7 +7,7 @@ public class Main {
 	public static void main (String[] args)
 	{
 		//Parser parser = new ParserTest (2);
-		Parser parser = new ParserBLIF ("../test.blif");
+		Parser parser = new ParserBLIF ("../blif/test.blif");
 		FSM    fsm    = null;
 
 		System.err.println ("generating test-FSM ...");
