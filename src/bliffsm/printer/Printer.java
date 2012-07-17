@@ -18,10 +18,12 @@ public abstract class Printer {
 		this.fsm    = fsm;
 		this.memory = memory;
 
-		int adr_bits = memory.addressBits ();
-		int dat_bits = memory.dataBits ();
-		hex_adr_digits = (adr_bits % 4 == 0 ? adr_bits / 4 : adr_bits / 4 + 1);
-		hex_dat_digits = (dat_bits % 4 == 0 ? dat_bits / 4 : dat_bits / 4 + 1);
+		if (memory != null) {
+			int adr_bits = memory.addressBits ();
+			int dat_bits = memory.dataBits ();
+			hex_adr_digits = (adr_bits % 4 == 0 ? adr_bits / 4 : adr_bits / 4 + 1);
+			hex_dat_digits = (dat_bits % 4 == 0 ? dat_bits / 4 : dat_bits / 4 + 1);
+		}
 	}
 
 	public abstract String print ();

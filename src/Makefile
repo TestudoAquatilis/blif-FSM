@@ -30,6 +30,7 @@ CLASSES = \
 	  bliffsm/printer/Printer.java \
 	  bliffsm/printer/PrinterMemfile.java \
 	  bliffsm/printer/PrinterVerilogGeneric.java \
+	  bliffsm/printer/PrinterVerilog.java \
 	  Main.java \
 
 
