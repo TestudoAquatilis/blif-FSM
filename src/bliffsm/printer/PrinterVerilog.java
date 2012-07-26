@@ -44,13 +44,17 @@ public class PrinterVerilog extends Printer {
 		buffer.append ("\n\tinput reset");
 
 		// inputs
-		for (String input_name : fsm.inputNameToId().keySet ()) {
+		for (Integer input_wire : fsm.inputWireToId().keySet ()) {
+			String input_name = fsm.inputIdToName().get(fsm.inputWireToId().get(input_wire));
+		//for (String input_name : fsm.inputNameToId().keySet ()) {
 			buffer.append (",\n\tinput ");
 			buffer.append (input_name);
 		}
 
 		// outputs
-		for (String output_name : fsm.outputNameToId().keySet ()) {
+		for (Integer output_wire : fsm.outputWireToId().keySet ()) {
+			String output_name = fsm.outputIdToName().get(fsm.outputWireToId().get(output_wire));
+		//for (String output_name : fsm.outputNameToId().keySet ()) {
 			buffer.append (",\n\toutput wire ");
 			buffer.append (output_name);
 		}
@@ -137,7 +141,7 @@ public class PrinterVerilog extends Printer {
 	{
 		int reset_state = fsm.stateEncoding().get (fsm.resetState ());
 
-		buffer.append ("assign state_wire <= next_state;\n");
+		buffer.append ("assign state_wire = next_state;\n");
 	}
 
 	private void genMemory (StringBuilder buffer)
@@ -149,19 +153,25 @@ public class PrinterVerilog extends Printer {
 			.append ("\t.gDataWidth (")
 			.append (memory.dataBits())
 			.append ("),\n")
-			.append ("\t.gContent (")
-			.append ((1 << memory.addressBits()) * memory.dataBits())
-			.append ("'b");
+			.append ("\t.gContent ({\n");
+//			.append ((1 << memory.addressBits()) * memory.dataBits())
+//			.append ("'b");
 
 		// content
 		String[] mem_data = memory.memory ();
 		for (int i_addr = mem_data.length - 1; i_addr >= 0; i_addr--) {
+			buffer.append ("\t\t")
+				.append(memory.dataBits())
+				.append("'b");
+
 			String i_data = mem_data[i_addr];
 
 			buffer.append (i_data);
+			if (i_addr != 0) buffer.append(",");
+			buffer.append("\n");
 		}
 
-		buffer.append(")\n\t) int_rom_inst (\n")
+		buffer.append("\t\t})\n\t) int_rom_inst (\n")
 			.append ("\t.iClock(clk),\n")
 			.append ("\t.iReset(reset),\n")
 			.append ("\t.iAddress(address_wire),\n")

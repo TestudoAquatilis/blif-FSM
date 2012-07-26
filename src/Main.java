@@ -8,7 +8,8 @@ public class Main {
 	{
 		//Parser parser = new ParserTest (2);
 		//Parser parser = new ParserBLIF ("../blif/test.blif");
-		Parser parser = new ParserBLIF ("../blif/fsmexamples/bbara.kiss2");
+		Parser parser = new ParserBLIF ("../test/mark1.blif");
+		//Parser parser = new ParserBLIF ("../blif/fsmexamples/s208.kiss2");
 		FSM    fsm    = null;
 
 		System.err.println ("generating test-FSM ...");
