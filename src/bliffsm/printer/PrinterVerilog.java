@@ -146,7 +146,7 @@ public class PrinterVerilog extends Printer {
 
 	private void genMemory (StringBuilder buffer)
 	{
-		buffer.append ("InternalROM #(\n")
+		buffer.append ("GenericROM #(\n")
 			.append ("\t.gAddressWidth (")
 			.append (memory.addressBits())
 			.append ("),\n")
@@ -171,7 +171,7 @@ public class PrinterVerilog extends Printer {
 			buffer.append("\n");
 		}
 
-		buffer.append("\t\t})\n\t) int_rom_inst (\n")
+		buffer.append("\t\t})\n\t) rom_inst (\n")
 			.append ("\t.iClock(clk),\n")
 			.append ("\t.iReset(reset),\n")
 			.append ("\t.iAddress(address_wire),\n")

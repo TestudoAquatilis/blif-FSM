@@ -6,3 +6,9 @@
 *.jar
 *.war
 *.ear
+*.zip
+*.tar
+*.gz
+*.bz2
+*.tgz
+*.tbz
